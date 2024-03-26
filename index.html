@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body>
+
+    <div class="app">
+        <h1>Simple Quiz</h1>
+        <h1>Timer</h1>
+        <!-- <div id="timer"></div> -->
+        <form name="submit-to-google-sheet">
+            <input type="text" name="Name" placeholder="Your Name Here" required style="display: none;" id="nameInput">
+ 
+            <input type="number" name="Number" placeholder="Your Marks Here" required id="input" style="visibility: hidden;">
+           
+
+
+            <button type="submit" id="result" style="display: none;" > Submit</button>
+        </form>
+
+
+        <div class="quiz">
+            <h2 id="question">Question Goes Here</h2>
+            <div id="answer-buttons">
+
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <button type="submit" id="next-btn">Next</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw7chzNgAAQF3I0BBacRfyHmGBDrbHBgATl5k6iMtfVOubpexymZKj4hUQsM7r21MeZ/exec';
+ const form = document.forms['submit-to-google-sheet'];
+ const msg = document.getElementById("msg");
+ 
+ form.addEventListener('submit', e => {
+   e.preventDefault();
+   fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+     .then(response => {
+       msg.innerHTML = "Thanks For Subscribing";
+       setTimeout(function(){
+         msg.innerHTML="";
+ 
+       },5000)
+ 
+       form.reset()
+     })
+     .catch(error => console.error('Error!', error.message));
+ });
+ 
+       </script>
+ 
+
+
+
+    <script src="quiz.js"></script>
+</body>
+
+</html>
